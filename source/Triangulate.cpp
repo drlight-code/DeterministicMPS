@@ -733,7 +733,7 @@ int sharpest_empty_triangle(int k, const std::vector<int> &next_vertex,
   const double obtuse_thresh = 1.9999;
   const double almost_obtuse_thresh = 1.8;
   bool failed = false;
-  while (!is_empty_triangle[j] || angle_measure[j]>=obtuse_thresh || isnan(angle_measure[j]))
+  while (!is_empty_triangle[j] || angle_measure[j]>=obtuse_thresh || std::isnan(angle_measure[j]))
   {
     j = next_vertex[j];
     if (j==k) // failsafe
@@ -760,7 +760,7 @@ int sharpest_empty_triangle(int k, const std::vector<int> &next_vertex,
   double best_angle_measure = angle_measure[j];
   double best_circumradius = circumradius_measure[j];
   int best_empty_circ = empty_circ[j];
-  bool best_is_bad = !best_empty_triangle || best_angle_measure>=obtuse_thresh || isnan(best_angle_measure);
+  bool best_is_bad = !best_empty_triangle || best_angle_measure>=obtuse_thresh || std::isnan(best_angle_measure);
   j = next_vertex[j];
   const double zero_angle_measure = 1.0e-10;
   do
@@ -783,7 +783,7 @@ int sharpest_empty_triangle(int k, const std::vector<int> &next_vertex,
     // 3b. small circumradius
     bool use_j = false;
     // 1.
-    const bool j_is_bad = !is_empty_triangle[j] || (angle_measure[j]>=obtuse_thresh) || isnan(angle_measure[j]);
+    const bool j_is_bad = !is_empty_triangle[j] || (angle_measure[j]>=obtuse_thresh) || std::isnan(angle_measure[j]);
     if (j_is_bad && !best_is_bad)
     {
       // don't use j
@@ -805,7 +805,7 @@ int sharpest_empty_triangle(int k, const std::vector<int> &next_vertex,
         use_j = true;
       }
       // 2. best is almost obtuse, and j has a smaller angle
-      else if ((isnan(best_angle_measure) && !isnan(angle_measure[j])) ||
+      else if ((std::isnan(best_angle_measure) && !std::isnan(angle_measure[j])) ||
            (best_angle_measure>=almost_obtuse_thresh && angle_measure[j]<best_angle_measure ))
       {
         use_j = true;
@@ -814,7 +814,7 @@ int sharpest_empty_triangle(int k, const std::vector<int> &next_vertex,
       else if ( empty_circ[j]  > best_empty_circ ||
                (empty_circ[j] == best_empty_circ &&
                 (circumradius_measure[j] < best_circumradius ||
-                 (isnan(best_circumradius) &&!isnan(circumradius_measure[j])))))
+                 (std::isnan(best_circumradius) &&!std::isnan(circumradius_measure[j])))))
       {
         use_j = true;
       }
