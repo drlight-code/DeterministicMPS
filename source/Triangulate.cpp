@@ -14,6 +14,7 @@
 #include <numeric>
 #include <algorithm>
 #include <cassert>
+#include <limits>
 
 // To ensure the loop is a simple polygon for the triangulation,
 //   ensure q is strictly closer to this_center than any other center, and strictly inside box
